@@ -93,18 +93,33 @@ void qs_sort(int arr[], int low, int high) {
   }
 }
 
+int calc_difference_sum(int *sorted_a, int *sorted_b, int size) {
+  int total = 0;
+  for (int i = 0; i < size; i++) {
+    int dif = sorted_a[i] - sorted_b[i];
+    if (dif < 0)
+      dif = dif * -1;
+    total += dif;
+  }
+  return total;
+}
+
 int main(void) {
   FILE *file = fopen(FILENAME, "r");
   int line_count = get_file_line_count(file),
-      *arr_a = (int *)malloc(line_count), arr_b[line_count];
+      *arr_a = (int *)malloc(line_count * sizeof(int)),
+      *arr_b = (int *)malloc(line_count * sizeof(int)), total = 0;
   build_lists(file, arr_a, arr_b);
   fclose(file);
 
   qs_sort(arr_a, 0, line_count - 1);
   qs_sort(arr_b, 0, line_count - 1);
-  print_array(arr_a, arr_b, line_count);
+  // print_array(arr_a, arr_b, line_count);
+  total = calc_difference_sum(arr_a, arr_b, line_count);
   free(arr_a);
-  // free(arr_b);
+  free(arr_b);
+
+  printf("total = %d\n", total);
 
   return 0;
 }
