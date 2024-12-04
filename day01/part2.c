@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char FILENAME[] = "input.txt";
+char FILENAME[] = "input_test.txt";
 
 struct map {
   int number;
@@ -93,13 +93,37 @@ void qs_sort(int arr[], int low, int high) {
   }
 }
 
-int calc_difference_sum(int *sorted_a, int *sorted_b, int size) {
-  int total = 0;
+int calc_number_by_count_sum(int *arr_a, int *arr_b, int size) {
+  int total = 0, count = 0, j = 0;
   for (int i = 0; i < size; i++) {
-    int dif = sorted_a[i] - sorted_b[i];
-    if (dif < 0)
-      dif = dif * -1;
-    total += dif;
+    printf("%d - %d\n", arr_a[i], arr_b[j]);
+    if (arr_a[i] > arr_b[j]) {
+      j++;
+
+      printf("fee\n");
+    }
+    if (arr_a[i] < arr_b[j]) {
+      printf("foo\n");
+      continue;
+    }
+
+    if (i >= 1 && arr_a[i] == arr_a[i - 1]) {
+
+      printf("bar\n");
+      total += arr_a[i] * count;
+      continue;
+    } else {
+
+      printf("bazz\n");
+      count = 0;
+    }
+    while (arr_a[i] == arr_b[j]) {
+      count++;
+      j++;
+    }
+
+    printf("%d\n", count);
+    total += arr_a[i] * count;
   }
   return total;
 }
@@ -115,7 +139,7 @@ int main(void) {
   qs_sort(arr_a, 0, line_count - 1);
   qs_sort(arr_b, 0, line_count - 1);
   // print_array(arr_a, arr_b, line_count);
-  total = calc_difference_sum(arr_a, arr_b, line_count);
+  total = calc_number_by_count_sum(arr_a, arr_b, line_count);
   free(arr_a);
   free(arr_b);
 
