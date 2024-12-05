@@ -96,27 +96,22 @@ void qs_sort(int arr[], int low, int high) {
 int calc_number_by_count_sum(int *arr_a, int *arr_b, int size) {
   int total = 0, count = 0, j = 0;
   for (int i = 0; i < size; i++) {
-    printf("%d - %d\n", arr_a[i], arr_b[j]);
-    if (arr_a[i] > arr_b[j]) {
-      j++;
-
-      printf("fee\n");
-    }
-    if (arr_a[i] < arr_b[j]) {
-      printf("foo\n");
-      continue;
-    }
-
+    printf("\n%d - %d\t", arr_a[i], arr_b[j]);
+    printf("total = %d\t", total);
     if (i >= 1 && arr_a[i] == arr_a[i - 1]) {
-
-      printf("bar\n");
+      printf("i == i -1\n");
       total += arr_a[i] * count;
       continue;
-    } else {
-
-      printf("bazz\n");
-      count = 0;
     }
+    while (arr_a[i] > arr_b[j]) {
+      printf("a > b");
+      j++;
+    }
+    if (arr_a[i] < arr_b[j]) {
+      printf("a < b\n");
+      continue;
+    }
+    count = 0;
     while (arr_a[i] == arr_b[j]) {
       count++;
       j++;
